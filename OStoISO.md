@@ -4,7 +4,7 @@ To turn any storage device into an ISO, it is usually as simple as calling `dd i
 However, take the following case:
 ![example_partitions.png](images/example_partitions.png)
 
-Here, there are **tons** of free space. If you tried to do the method described above, you would have a 126GB .iso file. Not only is this an inefficient amount of space, but it prevents you from using that files on smaller devices. To solve the issue, here's what I did.
+Here, there are **tons** of free space. If you tried to do the method described above, you would have a 126GB .iso file. Not only is this an inefficient amount of space, but it prevents you from using the ISO on smaller disks. To solve the issue, here's what I did.
 
 ### Process
 For this scenario, all you have to do is cut off the empty part in the .iso file. However, due to GPT partition tables having a backup table all the way at the back, you must include extra space in order to reconstruct it later. Without this, the disk you restore the image on will be unable to be recognized as a disk due to it having a cut off GPT backup table. While there are many methods of doing this, I found the following the easiest for me:
