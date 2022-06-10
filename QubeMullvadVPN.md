@@ -15,3 +15,7 @@ This tutorial is based on [the official mullvad guide](https://mullvad.net/en/he
 8. [Test your connection to Mullvad](https://mullvad.net/en/check/)
 9. Harden your connection by going into `MullvadVPN` qube settings and change `Allow all outgoing connections` to `Limit outgoing connections to` in the firewall tab. Then run `qvm-run --pass-io MullvadVPN 'cat /etc/openvpn/mullvad_[whatever].conf' | grep "remote "` to get the list of connections to mullvad and write those down.
 10. If there are any connections you DON'T want, remove them from both the .conf file and the firewall list. 
+11. Harden your connection even further by running `qvm-firewall MullvadVPN list` in `dom0`. Find the one with ICMP and run `qvm-firewall MullvadVPN del --rule-no [icmp_rule_#]`. Then block all ICMP connections by running `qvm-firewall MullvadVPN add --before [last_drop_rule_#] drop proto=icmp`. **Note that you won't be able to put in more connections after this through the GUI**
+
+
+## Wireguard
