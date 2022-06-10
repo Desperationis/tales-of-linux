@@ -6,7 +6,7 @@ VPN's are cool, but setting one up is somewhat of a pain in Qubes OS. But hey, s
 This tutorial is based on [the official mullvad guide](https://mullvad.net/en/help/qubes-os-4-and-mullvad-vpn/) and [this guide](https://micahflee.com/2019/11/using-mullvad-in-qubes/) 
 
 1. Create a new `StandaloneVM`, `"MullvadVPN"`, that is based on Debian-11 (as of now). Make sure it is on `sys-firewall` and `Provides Network to other Qubes`. 
-2. In any `AppVM`, go to the [Mullvad configuration site](https://mullvad.net/en/account/#/openvpn-config) and download the zip file.
+2. In any `AppVM`, go to the [Mullvad OpenVPN configuration site](https://mullvad.net/en/account/#/openvpn-config) and download the zip file.
 3. Transfer the zip to `MullvadVPN` and unzip it. On this machine, so the following:
 4. `sudo apt-get update && sudo apt-get install openvpn`
 5. `sudo cp mullvad_config_[whatever]/* /etc/openvpn/`
