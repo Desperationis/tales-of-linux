@@ -22,7 +22,7 @@ There are various other ways of doing this exact same thing with extra steps. Ge
 3. Using `gparted` (or similar), shrink the partition .iso file until you reach the desired size.
 4. Save the .iso file.
 5. Use the `truncate` tool to truncate the file, leaving 34 sectors or more of free space at the end (for the GPT backup table)
-6. Using `gdisk`, call `sudo gdisk mydisk.raw` in order for the tool to detect your broken table. After that, press `w` then `enter` at the command prompt in `gdisk` and it should fix the table for you. 
+6. Using `gdisk`, call `sudo gdisk mydisk.raw` in order for the tool to detect your broken table. After that, press `w` then `enter` at the command prompt in `gdisk` and it should fix the table for you as it rewrites it. Should this change in the future google appropiate command. 
 7. You know how a fully working GPT bootable operating system on a .iso file.
 
 Others suggested using a tool made for a similar task, but overall using those methods required the same steps in the long run. 
