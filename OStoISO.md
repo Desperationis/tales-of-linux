@@ -28,7 +28,9 @@ There are various other ways of doing this exact same thing with extra steps. Ge
 Others suggested using a tool made for a similar task, but overall using those methods required the same steps in the long run. 
 
 ### LiveCD's
-In case you didn't know, LiveCD's are usually constructed with both MBR and GPT partition tables; A "hybrid" disk. However, the GPT partition table only contains the EFI partition and that's it: there is no need to rebuild the GPT partition table. You can simply cut off the excess and be perfectly fine (as long as you don't cut any partitions). Even if you could, it would be very complex as you'd need to rebuild (or save) the MBR partition table as well. 
+In case you didn't know, LiveCD's are usually constructed with both MBR and GPT partition tables; A "hybrid" disk. However, the GPT partition table only contains the EFI partition and that's it: there is no need to rebuild the GPT partition table. You can simply cut off the excess and be perfectly fine (as long as you don't cut any partitions).
+
+There is one notable exception: Any auto-extended writable partitions. Those will behave a bit strange. If you use a tool like `xorriso` to try to copy the file structure of this cut ISO into a new one, the auto-extended partition will be written, resulting in the new ISO having the exact same size as the USB it was read with. You can obviously still trim it down, but it's still an annoying issue. 
 
 If you really do need to rebuild the partition table so that MBR and GPT are included, you can possibly follow https://superuser.com/questions/961312/how-to-create-hybrid-live-usb. 
 
