@@ -27,7 +27,8 @@ You could potentially buy a portable SSD and install it that way. My goal was to
 ### Slax OS
 [Slax OS](https://www.slax.org/) is an OS specifically meant to be as customizable as possible while providing persistent changes in a LiveCD via memory writes. Cool right? I would've gone with this, but I really wanted an Ubuntu system that had the same look, feel, and features. Currently, Slax OS is based on Debian, not on Ubuntu, so this would not work in my case. 
 
-
+### Customizing Live CD
+This is the option that worked for me and is what I use today. What I mean by "Customizing Live CD" is to literally rip out the contents of an existing LiveCD, install stuff and customize it, and rebuild the ISO without comprimising ANY features. 
 
 
 
