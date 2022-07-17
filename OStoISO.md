@@ -26,3 +26,11 @@ There are various other ways of doing this exact same thing with extra steps. Ge
 7. You know how a fully working GPT bootable operating system on a .iso file.
 
 Others suggested using a tool made for a similar task, but overall using those methods required the same steps in the long run. 
+
+### LiveCD's
+In case you didn't know, LiveCD's are usually constructed with both MBR and GPT partition tables. However, the GPT partition table only contains the EFI partition and that's it: there is no need to rebuild the GPT partition table. You can simply cut off the excess and be perfectly fine (as long as you don't cut any partitions). Even if you could, it would be very complex as you'd need to rebuild (or save) the MBR partition table as well. 
+
+
+
+
+
