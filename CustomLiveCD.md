@@ -28,8 +28,15 @@ You could potentially buy a portable SSD and install it that way. My goal was to
 [Slax OS](https://www.slax.org/) is an OS specifically meant to be as customizable as possible while providing persistent changes in a LiveCD via memory writes. Cool right? I would've gone with this, but I really wanted an Ubuntu system that had the same look, feel, and features. Currently, Slax OS is based on Debian, not on Ubuntu, so this would not work in my case. 
 
 ### Customizing Live CD
-This is the option that worked for me and is what I use today. What I mean by "Customizing Live CD" is to literally rip out the contents of an existing LiveCD, install stuff and customize it, and rebuild the ISO without comprimising ANY features. 
+This is the option that worked for me and is what I use today. What I mean by "Customizing Live CD" is to literally rip out the contents of an existing LiveCD, install stuff and customize it, and rebuild the ISO without comprimising ANY features.
 
+I've searched long and far for this precious information. From what I've seen, the exact structure of a LiveCD is not standard and varies from distro to distro, so there's not really a guide for it. When I found [a post on the Ubuntu forum](https://help.ubuntu.com/community/LiveCDCustomization) about this exact issue, I experimented with it rigiously until it worked exactly the way I wanted it to and found how it works. 
+
+##### Zeroth Layer
+First of all, good LiveCD's (at least the one's from Ubuntu) have two partition tables at the same time: GPT and MBR. This is meant to support booting between old BIOS systems and the newer UEFI systems. How exactly this is done is still a mystery to me, but the results are clearly there. Essentially, the GPT table in the first few sectors of the LiveCD only point to the EFI partition (UEFI uses this partition to find the boot files 
+
+
+There's two "layers" of a LiveCD ISO. When you open the ISO, every single file you see is not actually meaningful for the system itself. In fact, ALL of it is simply code to mount the read-only `filesystem.squashfs` file that contains a fully working Linux system. There's a bunch more boot files in this first layer than in a regular Linux installation due to the need to remain cross-compatible as possible. 
 
 
 
