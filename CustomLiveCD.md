@@ -3,7 +3,7 @@ I have spent YEARS finding the perfect solution to creating a custom LiveCD. Thi
 
 ## Options
 ### mkusb
-The very first option I went for was [mkusb](https://help.ubuntu.com/community/mkusb). While it works exceptionally well for creating LiveCD's, it doesn't allow you to customize it. At most, you have persistence, but this is an Ubuntu-only (you have to run the tool in a supported version of Ubuntu) feature that doesn't work for all distros. 
+The very first option I went for was [mkusb](https://help.ubuntu.com/community/mkusb). While it works exceptionally well for creating LiveCD's, it doesn't allow you to customize it. At most, you have persistence and can customize it from there, but this is an Ubuntu-only (you have to run the tool in a supported version of Ubuntu) feature that doesn't work for all distros. 
 
 ### Rufus
 [Rufus](https://rufus.ie/en/) is one of the most popular ISO writing tools on Windows. Like mkusb, it offers persistence, but again this does not work for all distros. In addition, doesn't allow you to customize the LiveCD at all. 
