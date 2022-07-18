@@ -45,8 +45,8 @@ This is the `filesystem.squashfs` itself. If you need to make changes to the act
 
 Now it's time to see this in action.
 
-## Customizing Ubuntu 20.04
-**1. Install required tools** ``sudo apt install squashfs-tools genisoimage xorriso``
+## Customizing Ubuntu 20.04 LiveCD
+**1. Install required tools** ``sudo apt install squashfs-tools xorriso``
 
 **2. Mount Live CD ISO** 
 ```
@@ -60,15 +60,35 @@ mkdir extract-cd
 sudo rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd
 ```
 
-**4. Expand `filesystem.squashfs`** This step takes the actual Ubuntu environment and expands it so we can edit it as `filesystem.squashfs` is in a read-only filesystem. 
+**4. Expand `filesystem.squashfs`** This step takes the actual Ubuntu environment and expands it to `edit/` so we can edit it as `filesystem.squashfs` is in a read-only filesystem. 
 ```
 sudo unsquashfs mnt/casper/filesystem.squashfs
 sudo mv squashfs-root edit
 ```
 
+**5. Chroot** Here we mount some specific directories into `edit` so that some tools may work when we chroot.
+```
+sudo mount -o bind /run/ edit/run
+sudo mount --bind /dev/ edit/dev
+sudo chroot edit
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devpts none /dev/pts
+```
 
+**6. Customize** This is the step were you are free to install any packages or customizations as you wish. Mounting `/run` to the chroot environment already gives you internet access, so feel free to go wild. I personally would recommend updating `/etc/apt/sources.list` with your own so that you can find most packages.
 
+**7. Cleanup** When you start running these you should be in your chroot environment. If any of the unmounts fail, continue unmounting then reboot your system.
+```
+apt clean
+rm -rf /tmp/* ~/.bash_history
+rm /var/lib/dbus/machine-id
+umount /proc || umount -lf /proc
+umount /sys
+umount /dev/pts
+umount /dev
+exit
+sudo umount edit/run
+```
 
-
-
-
+**8. Build ISO** Here is the most complicated step. 
