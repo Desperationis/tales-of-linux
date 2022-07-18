@@ -46,7 +46,25 @@ This is the `filesystem.squashfs` itself. If you need to make changes to the act
 Now it's time to see this in action.
 
 ## Customizing Ubuntu 20.04
+**1. Install required tools** ``sudo apt install squashfs-tools genisoimage xorriso``
 
+**2. Mount Live CD ISO** 
+```
+mkdir mnt
+sudo mount -o loop ubuntu-20.04.4-desktop-amd64.iso mnt
+```
+
+**3. Copy ISO to folder** In this specific step, we skip copying down `filesystem.squashfs` since we'll be overriding it anyway.
+```
+mkdir extract-cd
+sudo rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd
+```
+
+**4. Expand `filesystem.squashfs`** This step takes the actual Ubuntu environment and expands it so we can edit it as `filesystem.squashfs` is in a read-only filesystem. 
+```
+sudo unsquashfs mnt/casper/filesystem.squashfs
+sudo mv squashfs-root edit
+```
 
 
 
