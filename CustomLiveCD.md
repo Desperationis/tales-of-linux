@@ -46,6 +46,8 @@ This is the `filesystem.squashfs` itself. If you need to make changes to the act
 Now it's time to see this in action.
 
 ## Customizing Ubuntu 20.04 LiveCD
+These are instructions on modifying an Ubuntu 20.04 Live CD ISO based on [[this post]](https://help.ubuntu.com/community/LiveCDCustomization) from Ubuntu. There are some things I have discarded (due to 20.04 not needing them) and some things I have changed.
+
 **1. Install required tools** ``sudo apt install squashfs-tools xorriso``
 
 **2. Mount Live CD ISO** 
@@ -108,10 +110,30 @@ find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo t
 cd ..
 ```
 
-**8. Build ISO** Here is the most complicated step, read carefully.  Messing this one up will cost you some functionality such as hybrid booting or a limit on the ISO size.
+**9. Build ISO** Here is the most complicated step, read carefully. Messing this one up will cost you some functionality such as hybrid booting or a limit on the ISO size.
+```
+sudo cat <<EOF >xorriso.conf
+-as mkisofs \\
+-r -J --joliet-long \\
+-iso-level 3 \\
+-o custom.iso \\
+EOF
+
+sudo xorriso -report_about warning -indev "ubuntu-20.04.4-desktop-amd64.iso" -report_system_area as_mkisofs |
+    sed -e 's|$| \\|'>>xorriso.conf
+
+echo 'extract-cd' >>xorriso.conf
+
+sudo xorriso -options_from_file xorriso.conf
 ```
 
+Essentially, `xorriso` is a tool that helps create ISO images. This specific script generates our custom ISO, `custom.iso`, by building it from `extract-cd`. Since the original Ubuntu 20.04 LiveCD's partition table is very complicated due to being a hybrid boot of both MBR and UEFI, `xorriso` has been told to combine the partitions and partition tables of the original `ubuntu-20.04.4-desktop-amd64.iso` to `custom.iso` to skip the headache entirely. 
+
+The ISO 9660 standard holds specific "Levels of Interchange" that actually limit the size of the ISO. This can be set in `xorriso` with `-iso-level`. `iso-level 3` is the highest and can store up to TB. Levels 1 and 2 can only hold 4 GB, however, and is actually the default had it not been set in this script. 
+
+## Conclusion
+And that's it! You should now have a fully functional custom Ubuntu 20.04 LiveCD. You can try skipping the installer so you don't have to press "Try Me", the the user name, default wallpaper, boot logo, ect. 
 
 
-```
+
 
