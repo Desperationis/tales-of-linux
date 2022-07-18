@@ -32,6 +32,8 @@ This is the option that worked for me and is what I use today. What I mean by "C
 
 I've searched long and far for this precious information. From what I've seen, the exact structure of a LiveCD is not standard and varies from distro to distro, so there's not really a guide for it. When I found [a post on the Ubuntu forum](https://help.ubuntu.com/community/LiveCDCustomization) about this exact issue, I experimented with it rigiously until it worked exactly the way I wanted it to and found how it works. 
 
+**NOTE:** Ironically, after already finishing the whole task, I have found that all LiveCD's follow the [El-Torito](https://en.wikipedia.org/wiki/ISO_9660#El_Torito) standard. Every single one of them. I have read into it too much, but it could help someone else out there in the future.
+
 ##### Zeroth Layer
 First of all, current LiveCD's (at least the one's from Ubuntu) have two partition tables at the same time: GPT and MBR. This is meant to support booting between old BIOS systems and the newer UEFI systems. How exactly this is done is still a mystery to me, but the results are clearly there. Essentially, the GPT table in the first few sectors of the LiveCD only point to the EFI partition (UEFI uses this partition to find the boot files of the "main" (First Layer) partition) while the MBR lists ALL the partitions and points to the "First layer".
 
