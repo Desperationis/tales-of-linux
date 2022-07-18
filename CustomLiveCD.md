@@ -91,4 +91,27 @@ exit
 sudo umount edit/run
 ```
 
-**8. Build ISO** Here is the most complicated step. 
+**8. Rebuild Manifests** The LiveCD has specific files that must be updated if `filesystem.squashfs` is ever updated. `filesystem.manifest` holds a list of all packages on the squashfs. `filesystem.size` is the size of the squashfs and is used by the installer to warn the user of not having enough space, ect. `md5sum.txt` is the file that verifies the integrity of Layer 1 (including the squashfs file) every time you reboot your system.
+```
+chmod +w extract-cd/casper/filesystem.manifest
+sudo su
+chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > extract-cd/casper/filesystem.manifest
+exit
+sudo rm extract-cd/casper/filesystem.squashfs
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+sudo su
+printf $(du -sx --block-size=1 edit | cut -f1) > extract-cd/casper/filesystem.size
+exit
+cd extract-cd
+sudo rm md5sum.txt
+find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
+cd ..
+```
+
+**8. Build ISO** Here is the most complicated step, read carefully.  Messing this one up will cost you some functionality such as hybrid booting or a limit on the ISO size.
+```
+
+
+
+```
+
