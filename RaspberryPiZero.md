@@ -11,6 +11,7 @@ I've had trouble connecting to the Raspberry Pi Zero W. Tutorials all the way fr
 ### Troubleshooting Tips
 * **Doesn't connect to wifi #1** - Make sure you are connected to a 2.4gHz network, the regular Zero W can't connect to 5 gHz wifi. 
 * **Doesn't connect to wifi #2** - Create a wpa_supplicant.conf file in the boot directory after a fresh flash and put this in it:
+* **Doesn't connect to wifi #3** - You forgot to put quotes on the `psk` attribute to denote a cleartext password, not PSK hash
 
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
