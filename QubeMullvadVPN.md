@@ -31,7 +31,7 @@ This tutorial is based on [the official mullvad guide](https://mullvad.net/en/he
 8. Run `sudo systemctl enable wg-quick@[config file name]` to enable the service and restart the Qube.
 9. Harden your connection by going into `MullvadVPN` qube settings and change `Allow all outgoing connections` to `Limit outgoing connections to` in the firewall tab. Input the IP(s) of the config file(s) that are in use to only allow VPN packets to fly through.
 10. Harden your connection even further by running `qvm-firewall MullvadVPN list` in `dom0`. Find the one with ICMP and run `qvm-firewall MullvadVPN del --rule-no [icmp_rule_#]`. Then block all ICMP connections by running `qvm-firewall MullvadVPN add --before [last_drop_rule_#] drop proto=icmp`. The order of the rules should be **Accept IPS -> Accept DNS -> Drop ICMP -> Drop**. **Note that you won't be able to put in more connections after this through the GUI**
-
+11. To make the wireguard file be run on startup, run `sudo systemctl enable wg-quick@[conf file name]` then `sudo systemctl daemon-reload`, then reboot the box. 
 
 
 
